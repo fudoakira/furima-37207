@@ -2,16 +2,16 @@
 
 ## users テーブル
 
-| Column             | Type   | Options                   |
-| ------------------ | ------ | ------------------------- |
-| nickname           | string | null: false               |
-| email              | string | null: false, unique: true |
-| encrypted_password | string | null: false               |
-| 名前                | string | null: false               |
-| 名字                | string | null: false               |
-| 名前(フリガナ)       | string | null: false               |
-| 名字(フリガナ)       | string | null: false               |
-| birthday           | date   | null: false               |
+| Column               | Type   | Options                   |
+| -------------------- | ------ | ------------------------- |
+| nickname             | string | null: false               |
+| email                | string | null: false, unique: true |
+| encrypted_password   | string | null: false               |
+| first_name           | string | null: false               |
+| last_name            | string | null: false               |
+| first_name(hurigana) | string | null: false               |
+| last_name(hurigana)  | string | null: false               |
+| birthday             | date   | null: false               |
 
 ### Association
 
@@ -48,7 +48,7 @@
 
 - belongs_to :user
 - belongs_to :item
-- has_one :shipping_addresses
+- has_one :shipping_address
 
 ## Shipping_addresses テーブル
 
