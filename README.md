@@ -9,8 +9,8 @@
 | encrypted_password   | string | null: false               |
 | first_name           | string | null: false               |
 | last_name            | string | null: false               |
-| first_name(hurigana) | string | null: false               |
-| last_name(hurigana)  | string | null: false               |
+| first_name_hurigana  | string | null: false               |
+| last_name_hurigana   | string | null: false               |
 | birthday             | date   | null: false               |
 
 ### Association
