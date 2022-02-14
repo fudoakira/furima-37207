@@ -7,10 +7,10 @@
 | nickname           | string | null: false               |
 | email              | string | null: false, unique: true |
 | encrypted_password | string | null: false               |
-| hiragana           | string | null: false               |
-| katakana           | string | null: false               |
-| kanji              | string | null: false               |
-| hurigana           | string | null: false               |
+| 名前                | string | null: false               |
+| 名字                | string | null: false               |
+| 名前(フリガナ)       | string | null: false               |
+| 名字(フリガナ)       | string | null: false               |
 | birthday           | date   | null: false               |
 
 ### Association
@@ -35,7 +35,7 @@
 ### Association
 
 - belongs_to :user
-- belongs_to :order
+- has_one :order
 
 ## Orders テーブル
 
@@ -48,14 +48,14 @@
 
 - belongs_to :user
 - belongs_to :item
-- has_one :shipping_address
+- has_one :shipping_addresses
 
 ## Shipping_addresses テーブル
 
 | Column           | Type       | Options                        |
 | ---------------- | ---------- | ------------------------------ |
 | post_code        | string     | null: false                    |
-| prefecture_id    | string     | null: false                    |
+| prefecture_id    | integer    | null: false                    |
 | municipalities   | string     | null: false                    |
 | address          | string     | null: false                    |
 | building         | string     |                                |
