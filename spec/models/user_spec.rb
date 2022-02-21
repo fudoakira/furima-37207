@@ -32,20 +32,50 @@ RSpec.describe User, type: :model do
         @user.valid?
         expect(@user.errors.full_messages).to include("First name can't be blank")
       end
+      it 'first_nameに半角文字が含まれていると登録できない' do
+        @user.first_name = 'ﾀﾛｳ'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('First name must be entered in full-width (kanji, hiragana, katakana)')
+      end
       it 'last_nameが空では登録できない' do
         @user.last_name = ''
         @user.valid?
         expect(@user.errors.full_messages).to include("Last name can't be blank")
+      end
+      it 'last_nameに半角文字が含まれていると登録できない' do
+        @user.last_name = 'ﾔﾏﾀﾞ'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Last name must be entered in full-width (kanji, hiragana, katakana)')
       end
       it 'first_name_huriganaが空では登録できない' do
         @user.first_name_hurigana = ''
         @user.valid?
         expect(@user.errors.full_messages).to include("First name hurigana can't be blank")
       end
+      it 'first_name_huriganaに半角文字が含まれていると登録できない' do
+        @user.first_name_hurigana = 'ﾀﾛｳ'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('First name hurigana must be entered in full-width (katakana)')
+      end
+      it 'first_name_huriganaにカタカナ以外の文字（平仮名・漢字・英数字・記号）が含まれていると登録できない' do
+        @user.first_name_hurigana = 'Ｔあ郎：'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('First name hurigana must be entered in full-width (katakana)')
+      end
       it 'last_name_huriganaが空では登録できない' do
         @user.last_name_hurigana = ''
         @user.valid?
         expect(@user.errors.full_messages).to include("Last name hurigana can't be blank")
+      end
+      it 'last_name_huriganaに半角文字が含まれていると登録できない' do
+        @user.last_name_hurigana = 'ﾔﾏﾀﾞ'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Last name hurigana must be entered in full-width (katakana)')
+      end
+      it 'last_name_huriganaにカタカナ以外の文字（平仮名・漢字・英数字・記号）が含まれていると登録できない' do
+        @user.last_name_hurigana = '山Ｄあ；'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Last name hurigana must be entered in full-width (katakana)')
       end
       it 'birthdayが空では登録できない' do
         @user.birthday = ''
@@ -65,10 +95,28 @@ RSpec.describe User, type: :model do
         expect(@user.errors.full_messages).to include('Password is too long (maximum is 128 characters)')
       end
       it 'passwordとpassword_confirmationが不一致では登録できない' do
-        @user.password = '000000'
-        @user.password_confirmation = '111111'
+        @user.password = 'aaa000'
+        @user.password_confirmation = 'aaa111'
         @user.valid?
         expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
+      end
+      it '英字のみのpasswordでは登録できない' do
+        @user.password = 'aaaaaa'
+        @user.password_confirmation = 'aaaaaa'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Password must be entered in single-byte alphanumerical characters')
+      end
+      it '数字のみのpasswordでは登録できない' do
+        @user.password = '000000'
+        @user.password_confirmation = '000000'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Password must be entered in single-byte alphanumerical characters')
+      end
+      it '全角文字を含むpasswordでは登録できない' do
+        @user.password = 'Ａaa111'
+        @user.password_confirmation = 'Ａaa111'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Password must be entered in single-byte alphanumerical characters')
       end
       it '重複したemailが存在する場合は登録できない' do
         @user.save
