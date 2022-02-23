@@ -9,6 +9,8 @@ class Item < ApplicationRecord
   belongs_to :prefecture
   belongs_to :days_to_ship
 
+  validates :image, presence: true, blob: { content_type: ['image/png', 'image/jpg', 'image/jpeg'],
+            message: "can't be blank" }
   validates :item_name, presence: true
   validates :content, presence: true
   validates :price, presence: true,
