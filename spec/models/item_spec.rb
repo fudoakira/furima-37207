@@ -35,17 +35,17 @@ RSpec.describe Item, type: :model do
       it 'priceが全角数字だと保存できない' do
         @item.price = '１００００'
         @item.valid?
-        expect(@item.errors.full_messages).to include('Price must be entered in half-width numbers and must be entered between ¥300~¥9,999,999')
+        expect(@item.errors.full_messages).to include('Price must be entered in half-width numbers')
       end
       it 'priceが300未満だと保存できない' do
         @item.price = '200'
         @item.valid?
-        expect(@item.errors.full_messages).to include('Price must be entered in half-width numbers and must be entered between ¥300~¥9,999,999')
+        expect(@item.errors.full_messages).to include('Price must be entered between ¥300~¥9,999,999')
       end
       it 'priceが9999999より大きいと保存できない' do
         @item.price = '10000000'
         @item.valid?
-        expect(@item.errors.full_messages).to include('Price must be entered in half-width numbers and must be entered between ¥300~¥9,999,999')
+        expect(@item.errors.full_messages).to include('Price must be entered between ¥300~¥9,999,999')
       end
       it 'category_idが1だと保存できない' do
         @item.category_id = '1'
