@@ -15,9 +15,9 @@ class Item < ApplicationRecord
   validates :content, presence: true
   validates :price, presence: true,
             format: { with: /\A[0-9]+\z/,
-            message: 'must be entered in half-width numbers'},
-            numericality: { in: 300..9999999,
-            message: 'must be entered between ¥300~¥9,999,999' }
+            message: 'must be entered in half-width numbers and must be entered between ¥300~¥9,999,999' },
+            inclusion: { in: 300..9999999,
+            message: 'must be entered in half-width numbers and must be entered between ¥300~¥9,999,999' }
   validates :category_id, numericality: { other_than: 1 , message: "can't be blank"} 
   validates :item_quality_id, numericality: { other_than: 1 , message: "can't be blank"}
   validates :shipping_fee_burden_id, numericality: { other_than: 1 , message: "can't be blank"}
