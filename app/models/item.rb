@@ -14,7 +14,7 @@ class Item < ApplicationRecord
   validates :item_name, presence: true
   validates :content, presence: true
   validates :price, presence: true,
-            numericality: { with: /\A[0-9]+\z/,
+            numericality: { only_integer: true,
             message: 'must be entered in half-width numbers' },
             inclusion: { in: 300..9999999,
             message: 'must be entered between ¥300~¥9,999,999' }
