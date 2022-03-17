@@ -11,8 +11,9 @@ class OrderShippingAddress
   validates :user_id, presence: true
   validates :item_id, presence: true
   validates :token, presence: true
+
   def save
     order = Order.create(user_id: user_id, item_id: item_id)
-    ShippingAddress.create(post_code: post_code, prefecture_id: prefecture_id, municipalities: municipalities, address: address, building: building, phone_number: phone_number, order_id: order_id)
+    ShippingAddress.create(post_code: post_code, prefecture_id: prefecture_id, municipalities: municipalities, address: address, building: building, phone_number: phone_number, order_id: order.id)
   end
 end
