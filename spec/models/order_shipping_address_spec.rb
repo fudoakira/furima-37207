@@ -10,7 +10,11 @@ RSpec.describe OrderShippingAddress, type: :model do
   
   describe '商品購入' do
     context '商品購入できる場合' do
-      it "token,post_code,prefecture_id,municipalities,address,phone_numberが存在すれば保存できる" do
+      it "token,post_code,prefecture_id,municipalities,address,building,phone_numberが存在すれば保存できる" do
+        expect(@order_shipping_address).to be_valid
+      end
+      it "buildingが空でも保存できる" do
+        @order_shipping_address.building = ''
         expect(@order_shipping_address).to be_valid
       end
     end

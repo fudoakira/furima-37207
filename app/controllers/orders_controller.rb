@@ -23,10 +23,6 @@ class OrdersController < ApplicationController
     params.require(:order_shipping_address).permit(:post_code, :prefecture_id, :municipalities, :address, :building, :phone_number).merge(user_id: current_user.id, item_id: @item.id, token: params[:token])
   end
 
-  def item_params
-    params.require(:item).permit(:image, :item_name, :content, :price, :category_id, :item_quality_id, :shipping_fee_burden_id, :prefecture_id, :days_to_ship_id).merge(user_id: current_user.id)
-  end
-
   def pay_item
     Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
     Payjp::Charge.create(
@@ -41,7 +37,7 @@ class OrdersController < ApplicationController
   end
 
   def contributor_confirmation
-    if @item.order.present?
+    if @item.user_id == current_user.id
       redirect_to root_path
     end
   end
